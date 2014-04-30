@@ -13,6 +13,13 @@ import com.google.android.gcm.server.Message;
  */
 public interface Messenger {	
 	/**
+	 * Returns name of the messenger
+	 * 
+	 * @return
+	 */
+	public String getName();
+	
+	/**
 	 * Send a message to a single device.
 	 * 
 	 * @param registrationId the registration id of the device to receive the message

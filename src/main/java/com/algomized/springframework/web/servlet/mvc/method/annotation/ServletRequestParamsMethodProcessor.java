@@ -32,15 +32,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ServletModelAttribu
 
 import com.algomized.springframework.util.ReflectionUtils;
 import com.algomized.springframework.validation.PartialValid;
-import com.algomized.springframework.web.bind.annotation.Inherit;
+import com.algomized.springframework.web.bind.annotation.Inheritance;
 import com.algomized.springframework.web.bind.annotation.RequestParams;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrategyBase;
+
 import javax.validation.Valid;
 
 /**
  * Method processor supports {@link RequestParams @RequestParams} for parameters renaming, 
- * {@link PartialValid @Partial} for partial validation and {@link Inherit @Inherit} for
+ * {@link PartialValid @Partial} for partial validation and {@link Inheritance @Inherit} for
  * conversion of target object to its subclass.
  * 
  * <p>
@@ -52,7 +53,7 @@ import javax.validation.Valid;
  * <p>Performs partial validation by only validating field(s) that are not null.</p>
  * 
  * <p>
- * Converts of target object to its subclass if {@link Inherit @Inherit} is present. 
+ * Converts of target object to its subclass if {@link Inheritance @Inherit} is present. 
  * The subclass is specified by value of request parameter "type".
  * </p>
  * 
@@ -60,7 +61,6 @@ import javax.validation.Valid;
  */
 
 public class ServletRequestParamsMethodProcessor extends ServletModelAttributeMethodProcessor {
-	
 	protected final boolean annotationNotRequired;
 	
     protected final Map<Class<?>, Map<String, String>> replaceMap = new ConcurrentHashMap<Class<?>, Map<String, String>>();
@@ -259,7 +259,7 @@ public class ServletRequestParamsMethodProcessor extends ServletModelAttributeMe
 	}	
 
 	/**
-	 * Converts target object to its subclass if {@link Inherit @Inherit} is present. 
+	 * Converts target object to its subclass if {@link Inheritance @Inherit} is present. 
 	 * The subclass is specified by value of request parameter "type".
 	 */
 	@Override
@@ -267,11 +267,12 @@ public class ServletRequestParamsMethodProcessor extends ServletModelAttributeMe
 			String attributeName, MethodParameter parameter,
 			WebDataBinderFactory binderFactory, NativeWebRequest request)
 			throws Exception {
-		if (sourceValue.equals("CHECK_INHERIT") && parameter.hasParameterAnnotation(Inherit.class)) {
+		if (sourceValue.equals("CHECK_INHERIT")) {
 			return createInheritAttribute(parameter, request);
+		} else {
+			return super.createAttributeFromRequestValue(sourceValue, attributeName, 
+					parameter, binderFactory, request);
 		}
-		return super.createAttributeFromRequestValue(sourceValue, attributeName, 
-				parameter, binderFactory, request);		
 	}
 	
 	/**
@@ -285,15 +286,19 @@ public class ServletRequestParamsMethodProcessor extends ServletModelAttributeMe
 	 * @throws ClassNotFoundException
 	 */
 	protected Object createInheritAttribute(MethodParameter parameter, NativeWebRequest request) 
-			throws InheritCastException {
-		String type = request.getParameter("type");
+			throws InheritanceNotFoundException {
+		if (!parameter.hasParameterAnnotation(Inheritance.class)) {
+			return null;
+		}
+		String value = parameter.getParameterAnnotation(Inheritance.class).value();
+		String type = request.getParameter(value);		
 		Class<?> superClass = parameter.getParameterType();
 		String name = StringUtils.capitalize(type);		
 		try {
 			Class<?> subClass = ReflectionUtils.findSubClassByName(superClass, name);
 			return BeanUtils.instantiate(subClass);
 		} catch (Exception e) {
-			throw new InheritCastException(type);
+			throw new InheritanceNotFoundException(type);
 		}
 	}	
 }

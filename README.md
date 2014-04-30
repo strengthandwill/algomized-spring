@@ -38,6 +38,6 @@ To be confirm.
 
 
 
-[Algomized Spring]: http://algomizedwebserver.elasticbeanstalk.com/
+[Algomized Spring]: http://jourwee.elasticbeanstalk.com
 [Spring Framework]: http://projects.spring.io/spring-framework
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0

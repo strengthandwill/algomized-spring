@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.google.android.gcm.server.Constants;
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.MulticastResult;
@@ -20,12 +21,12 @@ import com.google.android.gcm.server.Sender;
  * 
  * @author Poh Kah Kong
  */
-public class GCMMessager implements Messenger {
+public class GCMMessenger implements Messenger {
 	private static final int MULTICAST_SIZE = 1000;
 	
 	private static final Executor threadPool = Executors.newFixedThreadPool(5);
 	
-	private static final Logger logger = LoggerFactory.getLogger(GCMMessager.class);
+	private static final Logger logger = LoggerFactory.getLogger(GCMMessenger.class);
 	
 	@Autowired
 	private Sender sender;
@@ -113,5 +114,11 @@ public class GCMMessager implements Messenger {
 					}
 				}
 			}});
+	}
+
+
+	@Override
+	public String getName() {
+		return "gcm";
 	}	
 }
