@@ -15,7 +15,7 @@ import com.algomized.springframework.validation.ReadOnly;
  * 
  * <p> Added static convenience methods for JavaBeans.</p>
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  */
 public class BeanUtils extends org.springframework.beans.BeanUtils {	
 	/**

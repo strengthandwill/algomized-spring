@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * <p>Static convenience methods for form.</p>
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  *
  */
 public class FormUtils {

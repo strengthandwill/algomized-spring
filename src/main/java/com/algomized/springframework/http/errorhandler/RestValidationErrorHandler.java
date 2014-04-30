@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrat
  * to construct a list of {@link ValidationError} objects as response. 
  * </p>
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  */
 public class RestValidationErrorHandler implements RestErrorHandler {
 	@Autowired

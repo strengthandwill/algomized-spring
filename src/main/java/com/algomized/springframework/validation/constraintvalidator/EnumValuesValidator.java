@@ -11,7 +11,7 @@ import com.algomized.springframework.validation.constraint.EnumValues;
 /**
  * Validate that the object is one of the given enum values.
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  */
 public class EnumValuesValidator implements ConstraintValidator<EnumValues, String> {
 	private List<String> values = new ArrayList<String>();

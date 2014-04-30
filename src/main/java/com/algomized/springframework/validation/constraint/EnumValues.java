@@ -13,7 +13,7 @@ import com.algomized.springframework.validation.constraintvalidator.EnumValuesVa
 /**
  * The annotated element must be one of the given enum values.
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  */
 @Constraint(validatedBy = EnumValuesValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD })

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * The annotated element is readonly.
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  *
  */
 @Target(ElementType.FIELD)

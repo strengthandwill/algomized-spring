@@ -5,7 +5,6 @@ package com.algomized.springframework.http.error;
  * passed from exception.
  * 
  * @author Poh Kah Kong
- *
  */
 public abstract class Error {
 	private String error;

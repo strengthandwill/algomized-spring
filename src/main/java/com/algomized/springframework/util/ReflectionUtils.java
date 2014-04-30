@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
  * 
  * <p>Added static convenience methods for reflection.</p>
  * 
- * @author Kah Kong
+ * @author Poh Kah Kong
  *
  */
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
